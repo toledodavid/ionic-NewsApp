@@ -18,18 +18,18 @@ export class NoticiasService {
 
   constructor(private http: HttpClient) { }
 
-  private ejecutarQuery(query: string){
+  private ejecutarQuery<T>(query: string){
     query = apiUrl + query;
-    return this.http.get(query, {headers});
+    return this.http.get<T>(query, {headers});
   }
 
   getTopHeadlines(){
-    return this.ejecutarQuery(`/top-headlines?country=us`);
+    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=us`);
     //return this.http.get<RespuestaTopHeadlines>(`https://newsapi.org/v2/top-headlines?country=us&apiKey=13543b43dd0f4d819b36fdda8d4cb071`);
   }
 
   getTopHeadlinesCategoria(categoria: string){
-    return this.ejecutarQuery(`/top-headlines?country=us&category=${categoria}`);
+    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=us&category=${categoria}`);
     //this.http.get(`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=13543b43dd0f4d819b36fdda8d4cb071`);
   }
 
