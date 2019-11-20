@@ -9,7 +9,9 @@ export class DataLocalService {
 
   noticias:Article[] = [];
 
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage) { 
+    this.cargar_noticias_favoritos();
+  }
 
   guardar_noticia_favoritos(noticia:Article) {
 
@@ -22,7 +24,12 @@ export class DataLocalService {
     
   }
 
-  cargar_noticias_favoritos() {
+  async cargar_noticias_favoritos() {
+    const favoritos = await this.storage.get('favoritos');
 
+    if(favoritos) {
+      this.noticias = favoritos;
+    }
+   
   }
 }
